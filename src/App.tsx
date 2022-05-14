@@ -1,4 +1,4 @@
-import { Body } from "./pages/Body/Body";
+import { Body } from "./organisms/Body/Body";
 import { Chart } from "./pages/Chart/Chart";
 import { Header } from "./pages/Header/Header";
 
