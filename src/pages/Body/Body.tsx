@@ -1,5 +1,11 @@
+import { Card } from "../../UI/Card/Card";
+
+
+
 export const Body = () => {
   return (
-    <div>Body</div>
-  )
-}
+    <div>
+      <Card />
+    </div>
+  );
+};
