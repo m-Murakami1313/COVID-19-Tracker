@@ -12,7 +12,7 @@ type countryType = {
 
 type bodyPropsTypes = {
   countries: {
-    name:string;
+    name: string;
   }[];
   setValueCountry: React.Dispatch<React.SetStateAction<string>>;
 };
