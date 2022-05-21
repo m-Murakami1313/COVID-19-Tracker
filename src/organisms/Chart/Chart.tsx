@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-export const Chart = () => {
+export const Chart = memo(() => {
   return (
     <div>Chart</div>
   )
-}
+});
