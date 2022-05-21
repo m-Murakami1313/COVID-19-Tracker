@@ -1,4 +1,13 @@
 .container {
   height: auto;
   width: 30%;
+  .infect{
+  border-bottom: 10px solid red;
+  }
+  .recovered{
+  border-bottom: 10px solid blue;
+  }
+  .deaths{
+  border-bottom: 10px solid green;
+  }
 }

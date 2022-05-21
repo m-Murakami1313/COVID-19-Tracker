@@ -1,29 +1,44 @@
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { memo } from "react";
+import cx from "classnames";
 
 import styles from "./CardForm.module.scss";
 
-export const CardForm = () => {
+export const CardForm = memo(({ title, data, date }: any) => {
+
+const styled = (title:any)=>{
+  switch(title){
+    case "Infect":
+      return styles.infect
+      case "Deaths":
+        return styles.deaths
+      default:
+        return styles.recovered
+  }
+
+}
   return (
-    <Card className={styles.container}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          INfected
-        </Typography>
-        <Typography variant="h5" component="div">
-          15648
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          hiduke
-        </Typography>
-        <Typography variant="body2">
-          Number of active cases of COVID-19
-        </Typography>
-      </CardContent>
-    </Card>
+    <div className={styles.container}>
+      <Card className={cx(styled(title))}>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {title}
+          </Typography>
+          {data && (
+            <Typography variant="h5" component="div">
+              {data.value}
+            </Typography>
+          )}
+          <Typography variant="h5" component="div">
+            {date}
+          </Typography>
+          <Typography variant="body2">
+            Number of active cases of COVID-19
+          </Typography>
+        </CardContent>
+      </Card>
+    </div>
   );
-};
+});

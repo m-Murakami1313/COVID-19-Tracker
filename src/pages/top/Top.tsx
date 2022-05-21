@@ -1,39 +1,32 @@
-import { useEffect, useState } from "react";
-
+import { memo, useEffect, useState, useCallback } from "react";
+import { useAPIData } from "../../hooks/UseAPIData";
 import { Body } from "../../organisms/Body/Body";
 import { Chart } from "../../organisms/Chart/Chart";
 import { Header } from "../../organisms/Header/Header";
 
-type countryType = {
-  name: string;
-};
+export const Top = memo(() => {
+  const [data, setData] = useState<any>({});
 
-export const Top = () => {
-  const [countries, setCountries] = useState<countryType[]>([]);
-  const [valueCountry, setValueCountry] = useState<string>("");
-
-  const baseUrl = "https://covid19.mathdro.id/api";
-  const countriesUrl = "/countries";
-  const url = baseUrl + countriesUrl;
+  const { fetchData } = useAPIData();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setCountries(data.countries);
-      } catch (err) {
-        console.error("情報の取得に失敗しました");
-      }
+    const fetchAPI = async () => {
+      const firstFetch = await fetchData();
+      setData(firstFetch);
     };
-    fetchData();
+    fetchAPI();
   }, []);
+
+  const handleCountry = async (selectedCountry: string) => {
+    const response = await fetchData(selectedCountry);
+    setData({ ...response, country: selectedCountry });
+  };
 
   return (
     <div>
       <Header />
-      <Body countries={countries} setValueCountry={setValueCountry} />
+      <Body data={data} handleCountry={handleCountry} />
       <Chart />
     </div>
   );
-};
+});

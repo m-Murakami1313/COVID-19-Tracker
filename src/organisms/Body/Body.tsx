@@ -2,20 +2,22 @@ import { Cards } from "../Cards/Cards";
 import { Select } from "../../UI/Select/Select";
 
 import styles from "./Body.module.scss";
+import { memo } from "react";
 
 type bodyPropsTypes = {
-  countries: {
-    name: string;
-  }[];
-  setValueCountry: React.Dispatch<React.SetStateAction<string>>;
+data:any;
+handleCountry(e:any):void;
 };
 
-export const Body = ({ countries, setValueCountry }: bodyPropsTypes) => {
+export const Body = ({data,handleCountry}:bodyPropsTypes) => {
+ 
   return (
     <div className={styles.body}>
-      <Select countries={countries} setValueCountry={setValueCountry} />
+      <div className={styles.select}>
+        <Select handleCountry={handleCountry}/>
+      </div>
       <div className={styles.cardsContainer}>
-        <Cards />
+        <Cards data={data} />
       </div>
     </div>
   );

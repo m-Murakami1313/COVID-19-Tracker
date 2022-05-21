@@ -1,36 +1,39 @@
-import React from "react";
+import React, { useState, memo, useEffect } from "react";
 
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 
 import styles from "./Select.module.scss";
+import { useAPIData } from "../../hooks/UseAPIData";
 
-type countryType = {
-  name: string;
+type Props = {
+  handleCountry(e: any): void;
 };
 
-type bodyPropsTypes = {
-  countries: {
-    name: string;
-  }[];
-  setValueCountry: React.Dispatch<React.SetStateAction<string>>;
-};
+export const Select = ({ handleCountry }: Props) => {
+  const [countries, setCountries] = useState<any>([]);
 
-export const Select = ({ countries, setValueCountry }: bodyPropsTypes) => {
+  const { fetchCountries } = useAPIData();
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      setCountries(await fetchCountries());
+    };
+    fetchAPI();
+  }, []);
+
+  
+
   return (
     <div>
       <Box className={styles.box}>
         <FormControl>
-          <NativeSelect
-            defaultValue=""
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setValueCountry(e.target.value);
-            }}
-          >
-            {countries.map((country: countryType) => (
-              <option key={country.name} value={country.name}>
-                {country.name}
+          <NativeSelect onChange={(e: any) => handleCountry(e.target.value)}>
+            <option value="">Global</option>
+            {countries.map((country: any) => (
+              <option key={country} value={country}>
+                {country}
               </option>
             ))}
           </NativeSelect>
