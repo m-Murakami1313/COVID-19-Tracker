@@ -5,7 +5,6 @@ import styles from "./Cards.module.scss";
 export const Cards = memo(({ data }: any) => {
   
   const date = new Date(data.lastUpdate).toDateString();
-  console.log(data);
   return (
     <div className={styles.cards}>
       <CardForm title="Infect" data={data.confirmed} date={date} />
