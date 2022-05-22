@@ -1,13 +1,16 @@
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { useAPIData } from "../../hooks/UseAPIData";
 import { Body } from "../../organisms/Body/Body";
 import { Chart } from "../../organisms/Chart/Chart";
 import { Header } from "../../organisms/Header/Header";
 import styles from "./Top.module.scss";
+import { dataTypes } from "../../hooks/Types";
+
+
 
 export const Top = memo(() => {
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState<dataTypes>({} as dataTypes );
 
   const { fetchData } = useAPIData();
 
@@ -19,10 +22,11 @@ export const Top = memo(() => {
     fetchAPI();
   }, []);
 
-  const handleCountry = async (selectedCountry: string) => {
+  const handleCountry = async (selectedCountry:string) => {
     const response = await fetchData(selectedCountry);
     setData({ ...response, country: selectedCountry });
   };
+
 
   return (
     <div className={styles.top}>

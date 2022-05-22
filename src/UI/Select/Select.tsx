@@ -8,30 +8,32 @@ import styles from "./Select.module.scss";
 import { useAPIData } from "../../hooks/UseAPIData";
 
 type Props = {
-  handleCountry(e: any): void;
+  handleCountry: (e: any) => void;
 };
 
-export const Select = ({ handleCountry }: Props) => {
-  const [countries, setCountries] = useState<any>([]);
+export const Select = memo(({ handleCountry }: Props) => {
+  const [countries, setCountries] = useState<string[]>([]);
 
   const { fetchCountries } = useAPIData();
 
   useEffect(() => {
-    const fetchAPI = async () => {
+    const fetchAPI: () => Promise<void> = async () => {
       setCountries(await fetchCountries());
     };
     fetchAPI();
   }, []);
 
-  
-
   return (
     <div>
       <Box className={styles.box}>
         <FormControl>
-          <NativeSelect onChange={(e: any) => handleCountry(e.target.value)}>
+          <NativeSelect
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleCountry(e.target.value)
+            }
+          >
             <option value="">Global</option>
-            {countries.map((country: any) => (
+            {countries.map((country: string) => (
               <option key={country} value={country}>
                 {country}
               </option>
@@ -41,4 +43,4 @@ export const Select = ({ handleCountry }: Props) => {
       </Box>
     </div>
   );
-};
+});

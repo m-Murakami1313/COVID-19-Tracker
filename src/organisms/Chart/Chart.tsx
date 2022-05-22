@@ -4,23 +4,27 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Cell,
   ResponsiveContainer,
 } from "recharts";
 
+import { dataTypes } from "../../hooks/Types";
 import styles from "./Chart.module.scss";
 
-export const Chart = (data: any) => {
+type Props = {
+  data:dataTypes 
+}
+
+export const Chart = ({data}: Props) => {
   const datasets = [
-    { label: "Infect", value: data.data.confirmed.value, fill: "red" },
+    { label: "Infect", value: data.confirmed.value, fill: "red" },
     {
       label: "Recoveres",
-      value: data.data.recovered.value,
+      value: data.recovered.value,
       fill: "bule",
     },
     {
       label: "Deaths",
-      value: data.data.deaths.value,
+      value: data.deaths.value,
       fill: "green",
     },
   ];

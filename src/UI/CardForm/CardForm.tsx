@@ -6,19 +6,23 @@ import cx from "classnames";
 
 import styles from "./CardForm.module.scss";
 
-export const CardForm = memo(({ title, data, date }: any) => {
+type cardProps = {
+  title: string;
+  data: {value:number};
+  date: string;
+};
 
-const styled = (title:any)=>{
-  switch(title){
-    case "Infect":
-      return styles.infect
+export const CardForm = memo(({ title, data, date }: cardProps) => {
+  const styled = (title: string) => {
+    switch (title) {
+      case "Infect":
+        return styles.infect;
       case "Deaths":
-        return styles.deaths
+        return styles.deaths;
       default:
-        return styles.recovered
-  }
-
-}
+        return styles.recovered;
+    }
+  };
   return (
     <div className={styles.container}>
       <Card className={cx(styled(title))}>

@@ -1,9 +1,7 @@
-import { useCallback, useState } from "react";
-
 const url = "https://covid19.mathdro.id/api";
 
 export const useAPIData = () => {
-  const fetchData = async (country?: any) => {
+  const fetchData = async (country?: string) => {
     let changeableUrl = url;
 
     {
@@ -25,7 +23,7 @@ export const useAPIData = () => {
       const response = await fetch(`${url}/countries`);
       const { countries } = await response.json();
 
-      return countries.map((country: any) => country.name);
+      return countries.map((country: { name: string }) => country.name);
     } catch (error) {
       console.log("情報の取得に失敗しました");
     }
